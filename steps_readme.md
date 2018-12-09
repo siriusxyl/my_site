@@ -4,4 +4,5 @@
 
 sudo pip install virtualenv
 virtualenv ENV_FORUM
+source ENV_FORUM/bin/activate
 pip install -r requirements.txt
