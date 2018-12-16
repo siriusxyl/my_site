@@ -5,10 +5,12 @@ from django.http import HttpResponse
 from django.shortcuts import render
 
 # Create your views here.
+from django.views.decorators.csrf import csrf_exempt
+
 from wgame.http_response import json_http_response
 from wgame.manager import get_game_version_switch, set_game_version_switch
 
-
+@csrf_exempt
 def version_control_view(request, game_name, version, switch):
     """
     版本控制
