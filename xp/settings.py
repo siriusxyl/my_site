@@ -151,6 +151,7 @@ INSTALLED_APPS = (
     # 'django.contrib.admindocs',
     'django.contrib.sitemaps', # Django sitemap framework
     'forum',
+    'wgame',
 )
 
 # A sample logging configuration. The only tangible logging
