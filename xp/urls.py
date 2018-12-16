@@ -6,10 +6,14 @@ from django.conf import settings
 # Uncomment the next two lines to enable the admin:
 from django.contrib.auth.decorators import login_required
 from django.contrib import admin
+
+import wgame.urls
+
 admin.autodiscover()
 admin.site.login = login_required(admin.site.login) # 设置admin登录的页面，settings.LOGIN_URL
 
 import forum.urls
+
 
 urlpatterns = [
     # Examples:
@@ -23,4 +27,5 @@ urlpatterns = [
     # url(r'^admin/', include(admin.site.urls)),
     url(r'^', include(forum.urls)),
     url(r'^manage/admin/', include(admin.site.urls)),
+    url(r'^wgame/', include(wgame.urls)),
 ]
