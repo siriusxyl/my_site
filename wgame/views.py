@@ -31,9 +31,9 @@ def version_control_view(request, game_name, version, switch):
     #     })
     # switch = request.GET.get("switch", "0")
     if request.method == 'GET':
-        set_game_version_switch(game_name, version, switch)
         switch_result = get_game_version_switch(game_name, version)
     elif request.method == 'POST':
+        set_game_version_switch(game_name, version, switch)
         switch_result = get_game_version_switch(game_name, version)
     return json_http_response({
         "error_code": 0,
