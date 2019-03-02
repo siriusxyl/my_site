@@ -23,6 +23,7 @@ def set_game_version_switch(game, version, switch):
             version=version,
             switch=int(switch),
         )
-    game_version = game_version_qs[0]
+    else:
+        game_version = game_version_qs[0]
     game_version.switch = int(switch)
     game_version.save()
