@@ -15,7 +15,7 @@ DATABASES = {
         'NAME': 'forum',                      # Or path to database file if using sqlite3.
         # The following settings are not used with sqlite3:
         'USER': 'root',
-        'PASSWORD': '123456',
+        'PASSWORD': '161401xyl',
         'HOST': '127.0.0.1',                      # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
         'PORT': '3306',                      # Set to empty string for default.
     }
@@ -111,7 +111,7 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.cache.FetchFromCacheMiddleware', # 缓存中间件，必须放在最后
+    # 'django.middleware.cache.FetchFromCacheMiddleware', # 缓存中间件，必须放在最后
 )
 
 ROOT_URLCONF = 'xp.urls'

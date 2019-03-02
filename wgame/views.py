@@ -9,6 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from wgame.http_response import json_http_response
 from wgame.manager import get_game_version_switch, set_game_version_switch
+from wgame.models import WGameVersion
 
 @csrf_exempt
 def version_control_view(request, game_name, version, switch):
@@ -44,3 +45,49 @@ def version_control_view(request, game_name, version, switch):
         "switch": switch,
         "result": switch_result,
     })
+
+
+def get_game_version_view(request):
+    """
+    获取版本号
+    :param request:
+    :return:
+    """
+    game_name = request.GET.get("appCode", "")
+    game_version = request.GET.get("appVersion", "")
+    if not game_name or not game_version:
+        return json_http_response({"error_code":1, "error_msg": u"缺少名称或版本号信息"})
+    # switch_result = get_game_version_switch(game_name, game_version)
+    from wgame.models import WGameVersion
+    game_version_record = WGameVersion.objects.filter(game=game_name, version=game_version).order_by("-id")[:1]
+    switch_result = game_version_record[0].switch if game_version_record else 0
+    import random
+    return json_http_response({
+        "error_code": 0,
+        "game_name": game_name,
+        "version": game_version,
+        "switch": switch_result,
+        "random": random.random(),
+    })
+
+
+def set_game_version_view(request):
+    """
+    设置版本号
+    :param request:
+    :return:
+    """
+    game_name = request.GET.get("appCode", "")
+    game_version = request.GET.get("appVersion", "")
+    switch = int(request.GET.get("appStatus", "0"))
+    if not game_name or not game_version:
+        return json_http_response({"error_code": 1, "error_msg": u"缺少名称或版本号信息"})
+    set_game_version_switch(game_name, game_version, switch)
+    switch_result = get_game_version_switch(game_name, game_version)
+    return json_http_response({
+        "error_code": 0,
+        "game_name": game_name,
+        "version": game_version,
+        "switch": switch_result,
+    })
+
