@@ -57,17 +57,12 @@ def get_game_version_view(request):
     game_version = request.GET.get("appVersion", "")
     if not game_name or not game_version:
         return json_http_response({"error_code":1, "error_msg": u"缺少名称或版本号信息"})
-    # switch_result = get_game_version_switch(game_name, game_version)
-    from wgame.models import WGameVersion
-    game_version_record = WGameVersion.objects.filter(game=game_name, version=game_version).order_by("-id")[:1]
-    switch_result = game_version_record[0].switch if game_version_record else 0
-    import random
+    switch_result = get_game_version_switch(game_name, game_version)
     return json_http_response({
         "error_code": 0,
         "game_name": game_name,
         "version": game_version,
         "switch": switch_result,
-        "random": random.random(),
     })
 
 
