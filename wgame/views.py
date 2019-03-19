@@ -9,7 +9,7 @@ from django.views.decorators.csrf import csrf_exempt
 
 from wgame.http_response import json_http_response
 from wgame.manager import get_game_version_switch, set_game_version_switch
-from wgame.models import WGameVersion
+from wgame.models import WGameVersion, WGameParam
 
 @csrf_exempt
 def version_control_view(request, game_name, version, switch):
@@ -57,17 +57,12 @@ def get_game_version_view(request):
     game_version = request.GET.get("appVersion", "")
     if not game_name or not game_version:
         return json_http_response({"error_code":1, "error_msg": u"缺少名称或版本号信息"})
-    # switch_result = get_game_version_switch(game_name, game_version)
-    from wgame.models import WGameVersion
-    game_version_record = WGameVersion.objects.filter(game=game_name, version=game_version).order_by("-id")[:1]
-    switch_result = game_version_record[0].switch if game_version_record else 0
-    import random
+    switch_result = get_game_version_switch(game_name, game_version)
     return json_http_response({
         "error_code": 0,
         "game_name": game_name,
         "version": game_version,
         "switch": switch_result,
-        "random": random.random(),
     })
 
 
@@ -91,3 +86,42 @@ def set_game_version_view(request):
         "switch": switch_result,
     })
 
+
+def get_game_param_view(request):
+    """
+    获取参数
+    :param request:
+    :return:
+    """
+    game_name = request.GET.get("appCode", "")
+    game_version = request.GET.get("appVersion", "")
+    if not game_name or not game_version:
+        return json_http_response({"error_code":1, "error_msg": u"缺少名称或版本号信息"})
+    param = get_game_param(game_name, game_version)
+    return json_http_response({
+        "error_code": 0,
+        "game_name": game_name,
+        "version": game_version,
+        "param": param,
+    })
+
+
+def set_game_param_view(request):
+    """
+    设置参数
+    :param request:
+    :return:
+    """
+    game_name = request.GET.get("appCode", "")
+    game_version = request.GET.get("appVersion", "")
+    param = request.GET.get("param", "")
+    if not game_name or not game_version:
+        return json_http_response({"error_code": 1, "error_msg": u"缺少名称或版本号信息"})
+    set_game_param(game_name, game_version, param)
+    param_result = get_game_param(game_name, game_version)
+    return json_http_response({
+        "error_code": 0,
+        "game_name": game_name,
+        "version": game_version,
+        "param": param_result,
+    })
