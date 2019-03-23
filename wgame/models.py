@@ -18,7 +18,7 @@ class WGameVersion(models.Model):
 class WGameParam(models.Model):
     game = models.CharField(max_length=50, default='')
     version = models.CharField(max_length=20, default='')
-    param = models.CharField(max_length=200, default='')
+    param = models.CharField(max_length=500, default='')
 
     created_time = models.DateTimeField(auto_now_add=True)
     last_modified = models.DateTimeField(auto_now=True)
