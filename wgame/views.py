@@ -8,7 +8,7 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
 from wgame.http_response import json_http_response
-from wgame.manager import get_game_version_switch, set_game_version_switch
+from wgame.manager import get_game_version_switch, set_game_version_switch, get_game_param, set_game_param
 from wgame.models import WGameVersion, WGameParam
 
 @csrf_exempt

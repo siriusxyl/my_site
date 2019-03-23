@@ -31,9 +31,9 @@ def set_game_version_switch(game, version, switch):
 
 def get_game_param(game, version):
     game_version = WGameParam.objects.filter(game=game, version=version).order_by("-id")[:1]
-    return game_version[0].param if game_version else 0
+    return game_version[0].param if game_version else ""
 
-def set_game_version(game, version, param):
+def set_game_param(game, version, param):
     game_version_qs = WGameParam.objects.filter(game=game, version=version).order_by("-id")[:1]
     if not game_version_qs:
         game_version = WGameParam.objects.create(
