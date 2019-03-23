@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 from django.conf.urls import patterns, url
 
-from wgame.views import version_control_view, get_game_version_view, set_game_version_view
+from wgame.views import version_control_view, get_game_version_view, set_game_version_view, get_game_param_view, set_game_param_view
 
 urlpatterns = patterns(
     '',
@@ -10,4 +10,6 @@ urlpatterns = patterns(
     # url('^get_version/?$', get_version_control_view),
     url('^conf/get_version/?$', get_game_version_view),
     url('^conf/set_version/?$', set_game_version_view),
+    url('^conf/get_param/?$', get_game_param_view),
+    url('^conf/set_param/?$', set_game_param_view),
 )
